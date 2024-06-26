@@ -8,17 +8,25 @@
     "dev": "tsx watch src/server.js",
     "build": "tsup src --out-dir dist",
     "lint": "eslint ./src --ext .ts",
+    "test": "vitest run --dir src/use-cases",
+    "test:watch": "vitest --dir src/use-cases",
+    "test:e2e": "vitest run --dir src/http",
+    "test:e2e:watch": "vitest --dir src/http",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "20.14.9",
+    "@vitest/coverage-v8": "1.6.0",
     "eslint": "8.57.0",
     "git-commit-msg-linter": "5.0.8",
     "husky": "9.0.11",
     "lint-staged": "15.2.7",
     "tsup": "8.1.0",
     "tsx": "4.15.7",
-    "typescript": "5.5.2"
+    "typescript": "5.5.2",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "1.6.0"
   }
 }
