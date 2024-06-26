@@ -30,6 +30,7 @@
     "vitest": "1.6.0"
   },
   "dependencies": {
+    "dotenv": "16.4.5",
     "fastify": "4.28.0"
   }
 }
