@@ -4,6 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "git-commit-msg-linter": "^5.0.8"
+    "git-commit-msg-linter": "5.0.8"
   }
 }
