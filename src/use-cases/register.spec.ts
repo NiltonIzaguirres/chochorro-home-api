@@ -29,4 +29,26 @@ describe('Register Use Case', async () => {
       }),
     )
   })
+
+  it('should not be able to register with same email twice', async () => {
+    await sut.execute({
+      nameOfPersonResponsible: 'John Doe',
+      email: 'johndoe@example.com',
+      password: 'password123',
+      cep: '12345678',
+      address: '123 Main St',
+      phone: '1234567890',
+    })
+
+    await expect(
+      sut.execute({
+        nameOfPersonResponsible: 'John Doe',
+        email: 'johndoe@example.com',
+        password: 'password123',
+        cep: '12345678',
+        address: '123 Main St',
+        phone: '1234567890',
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
