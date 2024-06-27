@@ -25,6 +25,12 @@ export class RegisterUseCase {
     password,
     phone,
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+    const orgWithSameEmail = await this.orgsRepository.findByEmail(email)
+
+    if (orgWithSameEmail) {
+      throw new Error('Email already in use')
+    }
+
     const org = await this.orgsRepository.create({
       nameOfPersonResponsible,
       address,
