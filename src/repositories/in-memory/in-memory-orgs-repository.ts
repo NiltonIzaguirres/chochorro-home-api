@@ -1,9 +1,9 @@
-import { Org } from '@prisma/client'
+import { Org, Prisma } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
-  async create(data) {
+  async create(data: Prisma.OrgCreateInput) {
     const org = {
       id: Date.now().toString(),
       cep: data.cep,
@@ -20,7 +20,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     return org
   }
 
-  async findByEmail(email) {
+  async findByEmail(email: string) {
     const org = this.items.find((item) => item.email === email)
 
     if (!org) {
