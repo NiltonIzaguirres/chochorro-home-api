@@ -29,4 +29,14 @@ export class InMemoryOrgsRepository implements OrgsRepository {
 
     return org
   }
+
+  async findById(id: string) {
+    const org = await this.items.find((item) => item.id === id)
+
+    if (!org) {
+      return null
+    }
+
+    return org
+  }
 }
