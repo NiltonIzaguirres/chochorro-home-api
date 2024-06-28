@@ -4,7 +4,7 @@ export interface FindManyPetsByQueryParams {
   age?: number
   energy?: number
   independence?: 'LOW' | 'MEDIUM' | 'HIGH'
-  environment?: 'LITTLE' | 'MEDIUM' | 'HIGH'
+  environment?: 'LITTLE' | 'MEDIUM' | 'WIDE'
   shape?: 'SMALL' | 'MEDIUM' | 'BIG'
 }
 
