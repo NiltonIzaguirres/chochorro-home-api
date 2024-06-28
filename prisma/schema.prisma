@@ -51,7 +51,7 @@ model Pet {
   about        String
   age          Int
   shape        ShapeLevel
-  energy       TraitLevel
+  energy       Int
   independence TraitLevel
   environment  EnvironmentLevel
   images       File[]
