@@ -45,4 +45,18 @@ describe('Create pet Use Case', async () => {
       createdAt: expect.any(Date),
     })
   })
+
+  it('should not be able to upload different mimeType', async () => {
+    await expect(
+      sut.execute({
+        fileData: await fs.createReadStream(
+          path.join(TEST_DIR_FROM, 'test-pdf.pdf'),
+        ),
+        mimeType: 'application/pdf',
+        fileName: 'test-pdf.pdf',
+        petId: 'org123',
+        uploadDir: TEST_DIR_TO,
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
