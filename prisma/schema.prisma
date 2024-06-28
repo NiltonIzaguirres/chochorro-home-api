@@ -22,7 +22,7 @@ model Org {
   address                 String
   phone                   String
   createdAt               DateTime @default(now())
-  Dog                     Dog[]
+  Pet                     Pet[]
 
   @@map("orgs")
 }
@@ -45,7 +45,7 @@ enum EnvironmentLevel {
   WIDE
 }
 
-model Dog {
+model Pet {
   id           String           @id @default(uuid())
   name         String
   about        String
@@ -60,7 +60,7 @@ model Dog {
   Org   Org    @relation(fields: [orgId], references: [id])
   orgId String
 
-  @@map("dogs")
+  @@map("pets")
 }
 
 model File {
@@ -69,8 +69,8 @@ model File {
   key       String
   createdAt DateTime @default(now())
 
-  dog   Dog    @relation(fields: [dogId], references: [id])
-  dogId String
+  pet   Pet    @relation(fields: [petId], references: [id])
+  petId String
 
   @@map("files")
 }
