@@ -1,6 +1,6 @@
 import { Pet, Prisma } from '@prisma/client'
 
-interface FindManyByQueryParams {
+export interface FindManyPetsByQueryParams {
   age?: number
   energy?: number
   independence?: 'LOW' | 'MEDIUM' | 'HIGH'
@@ -11,6 +11,6 @@ interface FindManyByQueryParams {
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
   save(data: Pet): Promise<Pet>
-  findManyByQuery(data: FindManyByQueryParams): Promise<Pet[]>
+  findManyByQuery(data: FindManyPetsByQueryParams): Promise<Pet[]>
   findById(id: string): Promise<Pet | null>
 }
