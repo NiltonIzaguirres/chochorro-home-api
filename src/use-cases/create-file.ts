@@ -3,6 +3,7 @@ import { File } from '@prisma/client'
 import fs from 'node:fs'
 import path from 'path'
 import { randomUUID } from 'node:crypto'
+import { InvalidTypeError } from './erros/invalid-type-error'
 
 interface CreateFileUseCaseRequest {
   fileData: NodeJS.ReadableStream
@@ -25,38 +26,35 @@ export class CreateFileUseCase {
     uploadDir,
     petId,
   }: CreateFileUseCaseRequest): Promise<CreateFileUseCaseResponse> {
+    const imageMimeTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/bmp',
+      'image/tiff',
+      'image/webp',
+      'image/svg+xml',
+    ]
+
+    if (!imageMimeTypes.includes(mimeType)) {
+      throw new InvalidTypeError()
+    }
+
+    const fileKey = randomUUID().concat('-').concat(fileName)
+    const uploadPath = path.join(uploadDir, fileKey)
     try {
-      const imageMimeTypes = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-        'image/bmp',
-        'image/tiff',
-        'image/webp',
-        'image/svg+xml',
-      ]
-
-      const fileKey = randomUUID().concat('-').concat(fileName)
-      const uploadPath = path.join(uploadDir, fileKey)
-
       const writableStream = fs.createWriteStream(uploadPath)
-
-      if (!imageMimeTypes.includes(mimeType)) {
-        throw new Error('Invalid file type')
-      }
-
       await fileData.pipe(writableStream)
-
-      const file = await this.repository.create({
-        key: fileKey,
-        name: fileName,
-        petId,
-      })
-
-      return { file }
     } catch (err) {
-      console.log(err)
       throw new Error('Failed to upload file')
     }
+
+    const file = await this.repository.create({
+      key: fileKey,
+      name: fileName,
+      petId,
+    })
+
+    return { file }
   }
 }

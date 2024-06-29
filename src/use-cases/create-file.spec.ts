@@ -4,6 +4,7 @@ import { InMemoryFilesRepository } from '@/repositories/in-memory/in-memory-file
 import path from 'path'
 // import * as fs from 'fs-extra'
 import fs from 'fs'
+import { InvalidTypeError } from './erros/invalid-type-error'
 
 const TEST_DIR_FROM = path.join(process.cwd(), 'test', 'assets')
 const TEST_DIR_TO = path.join(process.cwd(), 'tmp')
@@ -57,6 +58,6 @@ describe('Create pet Use Case', async () => {
         petId: 'org123',
         uploadDir: TEST_DIR_TO,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(InvalidTypeError)
   })
 })
