@@ -28,11 +28,7 @@ export class InMemoryFilesRepository implements FilesRepository {
   }
 
   async findByPetId(petId: string) {
-    const file = this.items.find((item) => item.petId === petId)
-
-    if (!file) {
-      return null
-    }
+    const file = this.items.filter((item) => item.petId === petId)
 
     return file
   }
