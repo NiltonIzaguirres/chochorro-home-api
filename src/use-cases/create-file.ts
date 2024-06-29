@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'path'
 import { randomUUID } from 'node:crypto'
 import { InvalidTypeError } from './erros/invalid-type-error'
+import { FailedToUploadFileError } from './erros/failed-to-upload-file-error'
 
 interface CreateFileUseCaseRequest {
   fileData: NodeJS.ReadableStream
@@ -46,7 +47,7 @@ export class CreateFileUseCase {
       const writableStream = fs.createWriteStream(uploadPath)
       await fileData.pipe(writableStream)
     } catch (err) {
-      throw new Error('Failed to upload file')
+      throw new FailedToUploadFileError()
     }
 
     const file = await this.repository.create({
