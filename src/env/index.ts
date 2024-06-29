@@ -7,6 +7,7 @@ const dotenvSchema = z.object({
     .default('development'),
   APP_PORT: z.coerce.number().default(3333),
   APP_HOST: z.coerce.string().default('0.0.0.0'),
+  APP_DOMAIN: z.coerce.string(),
 })
 
 const _env = dotenvSchema.safeParse(process.env)
