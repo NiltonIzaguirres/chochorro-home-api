@@ -4,6 +4,7 @@ import { InMemoryFilesRepository } from '@/repositories/in-memory/in-memory-file
 import { ResourceNotFoundError } from './erros/resource-not-found-error'
 import path from 'path'
 import fs from 'node:fs'
+import { FileNotFoundInDiskError } from './erros/file-not-found-in-disk-erro'
 
 const TEST_DIR_FROM = path.join(process.cwd(), 'test', 'assets')
 const TEST_DIR_TO = path.join(process.cwd(), 'tmp')
@@ -50,5 +51,20 @@ describe('Delete File UseCase', () => {
         uploadDir: '/path-no-exist',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
+  })
+
+  it('should throw an error when trying to delete a non-existent file in disk', async () => {
+    const file = await filesRepository.create({
+      name: 'files-example.png',
+      key: 'delete-file-test.svg',
+      petId: 'pet-id-01',
+    })
+
+    await expect(
+      sut.execute({
+        id: file.id,
+        uploadDir: '/path-no-exist',
+      }),
+    ).rejects.toBeInstanceOf(FileNotFoundInDiskError)
   })
 })
