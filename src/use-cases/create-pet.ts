@@ -3,6 +3,7 @@ import { Pet } from '@prisma/client'
 
 interface CreatePetUseCaseRequest {
   name: string
+  type: string
   about: string
   age: number
   energy: number
@@ -21,6 +22,7 @@ export class CreatePetUseCase {
 
   async execute({
     about,
+    type,
     age,
     energy,
     independence,
@@ -33,6 +35,7 @@ export class CreatePetUseCase {
       name,
       about,
       age,
+      type,
       energy,
       independence,
       environment,

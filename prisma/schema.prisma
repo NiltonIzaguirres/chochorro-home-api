@@ -47,6 +47,7 @@ enum EnvironmentLevel {
 
 model Pet {
   id           String           @id @default(uuid())
+  type         String
   name         String
   about        String
   age          Int

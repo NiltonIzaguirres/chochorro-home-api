@@ -9,6 +9,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     const pet: Pet = {
       id: randomUUID(),
       name: data.name,
+      type: data.type,
       about: data.about,
       age: data.age,
       energy: data.energy,
