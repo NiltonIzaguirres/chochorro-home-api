@@ -2,6 +2,7 @@ import { Pet, Prisma } from '@prisma/client'
 
 export interface FindManyPetsByQueryParams {
   age?: number
+  type?: string
   energy?: number
   independence?: 'LOW' | 'MEDIUM' | 'HIGH'
   environment?: 'LITTLE' | 'MEDIUM' | 'WIDE'

@@ -37,6 +37,7 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async findManyByQuery({
     age,
+    type,
     energy,
     environment,
     independence,
@@ -62,6 +63,10 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     if (shape) {
       filteredPets = filteredPets.filter((pet) => pet.age === age)
+    }
+
+    if (type) {
+      filteredPets = filteredPets.filter((pet) => pet.type === type)
     }
 
     return filteredPets

@@ -14,6 +14,7 @@ export class FetchPetsByQueryUseCase {
   constructor(private readonly petsRepository: PetsRepository) {}
   async execute({
     age,
+    type,
     energy,
     environment,
     independence,
@@ -21,6 +22,7 @@ export class FetchPetsByQueryUseCase {
   }: FetchPetsByQueryUseCaseRequest): Promise<FetchPetsByQueryUseCaseResponse> {
     const pets = await this.petsRepository.findManyByQuery({
       age,
+      type,
       energy,
       environment,
       independence,
