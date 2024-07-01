@@ -24,18 +24,6 @@ export class PrismaPetsRepository implements PetsRepository {
     independence,
     shape,
   }: FindManyPetsByQueryParams) {
-    // const pets = await prisma.pet.findMany({
-    //   where: {
-    //     OR: [
-    //       { age: { gte: data.age || undefined } },
-    //       { energy: { gte: data.energy || undefined } },
-    //       { independence: { equals: data.independence || undefined } },
-    //       { environment: { equals: data.environment || undefined } },
-    //       { shape: { equals: data.shape || undefined } },
-    //     ],
-    //   },
-    // })
-
     const where: Prisma.PetWhereInput = {}
 
     if (age) {
