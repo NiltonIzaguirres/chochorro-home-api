@@ -57,4 +57,38 @@ describe('Fetch pets by query Use Case', async () => {
       }),
     )
   })
+
+  it('should be able to fetch paginated pets with query params', async () => {
+    for (let i = 1; i <= 22; i++) {
+      await petsRepository.create({
+        name: 'John Doe',
+        city: 'San Francisco',
+        type: 'dog',
+        about: 'A friendly and playful dog',
+        age: 3,
+        energy: 5,
+        independence: 'LOW',
+        environment: 'WIDE',
+        shape: 'BIG',
+        orgId: 'org123',
+      })
+    }
+
+    const { pets } = await sut.execute({
+      query: {
+        type: 'dog',
+        city: 'San Francisco',
+      },
+      page: 2,
+    })
+
+    expect(pets).toHaveLength(2)
+    expect(pets[0]).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        type: 'dog',
+        city: 'San Francisco',
+      }),
+    )
+  })
 })
