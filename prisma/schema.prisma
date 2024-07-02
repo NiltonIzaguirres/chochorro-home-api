@@ -57,12 +57,23 @@ model Pet {
   independence TraitLevel
   environment  EnvironmentLevel
   images       File[]
+  Requirement  Requirement[]
   createdAt    DateTime         @default(now())
 
   Org   Org    @relation(fields: [orgId], references: [id])
   orgId String
 
   @@map("pets")
+}
+
+model Requirement {
+  id   String @id @default(uuid())
+  text String
+
+  pet   Pet    @relation(fields: [petId], references: [id])
+  petId String
+
+  @@map("requirements")
 }
 
 model File {
