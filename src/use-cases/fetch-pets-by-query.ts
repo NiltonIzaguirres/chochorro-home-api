@@ -1,10 +1,13 @@
 import {
-  FindManyPetsByQueryParams,
+  FindManyPetsByQuery,
   PetsRepository,
 } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
 
-interface FetchPetsByQueryUseCaseRequest extends FindManyPetsByQueryParams {}
+interface FetchPetsByQueryUseCaseRequest {
+  query: FindManyPetsByQuery
+  page?: number
+}
 
 interface FetchPetsByQueryUseCaseResponse {
   pets: Pet[]
@@ -13,23 +16,10 @@ interface FetchPetsByQueryUseCaseResponse {
 export class FetchPetsByQueryUseCase {
   constructor(private readonly petsRepository: PetsRepository) {}
   async execute({
-    age,
-    city,
-    type,
-    energy,
-    environment,
-    independence,
-    shape,
+    query,
+    page = 1,
   }: FetchPetsByQueryUseCaseRequest): Promise<FetchPetsByQueryUseCaseResponse> {
-    const pets = await this.petsRepository.findManyByQuery({
-      age,
-      city,
-      type,
-      energy,
-      environment,
-      independence,
-      shape,
-    })
+    const pets = await this.petsRepository.findManyByQuery({ query, page })
 
     return { pets }
   }

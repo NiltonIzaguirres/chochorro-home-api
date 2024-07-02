@@ -1,13 +1,18 @@
 import { Pet, Prisma } from '@prisma/client'
 
-export interface FindManyPetsByQueryParams {
+export interface FindManyPetsByQuery {
   age?: number
   type?: string
-  city: string
+  city?: string
   energy?: number
   independence?: 'LOW' | 'MEDIUM' | 'HIGH'
   environment?: 'LITTLE' | 'MEDIUM' | 'WIDE'
   shape?: 'SMALL' | 'MEDIUM' | 'BIG'
+}
+
+export interface FindManyPetsByQueryParams {
+  query: FindManyPetsByQuery
+  page: number
 }
 
 export interface PetsRepository {

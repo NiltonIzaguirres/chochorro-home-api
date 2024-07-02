@@ -38,13 +38,15 @@ describe('Fetch pets by query Use Case', async () => {
     })
 
     const { pets } = await sut.execute({
-      age: 20,
-      type: 'dog',
-      city: 'San Francisco',
-      energy: 3,
-      environment: 'MEDIUM',
-      independence: 'MEDIUM',
-      shape: 'SMALL',
+      query: {
+        age: 20,
+        type: 'dog',
+        city: 'San Francisco',
+        energy: 3,
+        environment: 'MEDIUM',
+        independence: 'MEDIUM',
+        shape: 'SMALL',
+      },
     })
 
     expect(pets).toHaveLength(1)

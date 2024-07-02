@@ -17,47 +17,41 @@ export class PrismaPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findManyByQuery({
-    age,
-    type,
-    city,
-    energy,
-    environment,
-    independence,
-    shape,
-  }: FindManyPetsByQueryParams) {
+  async findManyByQuery({ query, page }: FindManyPetsByQueryParams) {
     const where: Prisma.PetWhereInput = {}
 
-    if (age) {
-      where.age = age
+    if (query?.age) {
+      where.age = query.age
     }
 
-    if (energy) {
-      where.energy = energy
+    if (query?.energy) {
+      where.energy = query.energy
     }
 
-    if (environment) {
-      where.environment = environment
+    if (query?.environment) {
+      where.environment = query.environment
     }
 
-    if (independence) {
-      where.independence = independence
+    if (query?.independence) {
+      where.independence = query.independence
     }
 
-    if (shape) {
-      where.shape = shape
+    if (query?.shape) {
+      where.shape = query.shape
     }
 
-    if (type) {
-      where.type = type
+    if (query?.type) {
+      where.type = query.type
     }
 
-    if (city) {
-      where.city = city
+    if (query?.city) {
+      where.city = query.city
     }
 
     const pets = await prisma.pet.findMany({
       where,
+      skip: (page - 1) * 20,
+      take: 20,
     })
 
     return pets

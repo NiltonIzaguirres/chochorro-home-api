@@ -36,46 +36,42 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findManyByQuery({
-    age,
-    type,
-    city,
-    energy,
-    environment,
-    independence,
-    shape,
-  }: FindManyPetsByQueryParams) {
+  async findManyByQuery({ query, page }: FindManyPetsByQueryParams) {
     let filteredPets = this.items
 
-    if (age) {
-      filteredPets = filteredPets.filter((pet) => pet.age === age)
+    if (query?.age) {
+      filteredPets = filteredPets.filter((pet) => pet.age === query.age)
     }
 
-    if (energy) {
-      filteredPets = filteredPets.filter((pet) => pet.energy === energy)
+    if (query?.energy) {
+      filteredPets = filteredPets.filter((pet) => pet.energy === query.energy)
     }
 
-    if (environment) {
-      filteredPets = filteredPets.filter((pet) => pet.age === age)
+    if (query?.environment) {
+      filteredPets = filteredPets.filter(
+        (pet) => pet.environment === query.environment,
+      )
     }
 
-    if (independence) {
-      filteredPets = filteredPets.filter((pet) => pet.age === age)
+    if (query?.independence) {
+      filteredPets = filteredPets.filter(
+        (pet) => pet.independence === query.independence,
+      )
     }
 
-    if (shape) {
-      filteredPets = filteredPets.filter((pet) => pet.age === age)
+    if (query?.shape) {
+      filteredPets = filteredPets.filter((pet) => pet.shape === query.shape)
     }
 
-    if (type) {
-      filteredPets = filteredPets.filter((pet) => pet.type === type)
+    if (query?.type) {
+      filteredPets = filteredPets.filter((pet) => pet.type === query.type)
     }
 
-    if (city) {
-      filteredPets = filteredPets.filter((pet) => pet.type === type)
+    if (query?.city) {
+      filteredPets = filteredPets.filter((pet) => pet.city === query.city)
     }
 
-    return filteredPets
+    return filteredPets.slice((page - 1) * 20, page * 20)
   }
 
   async save(pet: Pet) {
