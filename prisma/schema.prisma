@@ -51,6 +51,7 @@ model Pet {
   name         String
   about        String
   age          Int
+  city         String
   shape        ShapeLevel
   energy       Int
   independence TraitLevel

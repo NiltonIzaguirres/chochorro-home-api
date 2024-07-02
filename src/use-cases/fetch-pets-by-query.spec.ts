@@ -13,6 +13,7 @@ describe('Fetch pets by query Use Case', async () => {
   it('should fetch pets with query params', async () => {
     await petsRepository.create({
       name: 'John Doe',
+      city: 'San Francisco',
       type: 'dog',
       about: 'A friendly and playful dog',
       age: 3,
@@ -25,6 +26,7 @@ describe('Fetch pets by query Use Case', async () => {
 
     await petsRepository.create({
       name: 'Get pet',
+      city: 'San Francisco',
       type: 'dog',
       about: 'This pet',
       age: 20,
@@ -37,6 +39,8 @@ describe('Fetch pets by query Use Case', async () => {
 
     const { pets } = await sut.execute({
       age: 20,
+      type: 'dog',
+      city: 'San Francisco',
       energy: 3,
       environment: 'MEDIUM',
       independence: 'MEDIUM',

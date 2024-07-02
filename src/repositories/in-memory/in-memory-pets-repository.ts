@@ -9,6 +9,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     const pet: Pet = {
       id: randomUUID(),
       name: data.name,
+      city: data.city,
       type: data.type,
       about: data.about,
       age: data.age,
@@ -38,6 +39,7 @@ export class InMemoryPetsRepository implements PetsRepository {
   async findManyByQuery({
     age,
     type,
+    city,
     energy,
     environment,
     independence,
@@ -66,6 +68,10 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     if (type) {
+      filteredPets = filteredPets.filter((pet) => pet.type === type)
+    }
+
+    if (city) {
       filteredPets = filteredPets.filter((pet) => pet.type === type)
     }
 

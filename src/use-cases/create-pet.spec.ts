@@ -14,6 +14,7 @@ describe('Create pet Use Case', async () => {
   it('should be able to create a pet', async () => {
     const { pet } = await sut.execute({
       name: 'John Doe',
+      city: 'San Francisco',
       type: 'dog',
       about: 'A friendly and playful dog',
       age: 3,

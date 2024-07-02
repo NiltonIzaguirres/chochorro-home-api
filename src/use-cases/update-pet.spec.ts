@@ -15,6 +15,7 @@ describe('Create pet Use Case', async () => {
   it('should be able to update a pet', async () => {
     const createdPet = await petsRepository.create({
       name: 'John Doe Smith',
+      city: 'London',
       type: 'dog',
       about: 'A friendly',
       age: 33,
@@ -27,6 +28,7 @@ describe('Create pet Use Case', async () => {
 
     const { pet } = await sut.execute({
       id: createdPet.id,
+      city: 'New York',
       type: 'cat',
       name: 'John Doe',
       about: 'A friendly and playful dog',
@@ -43,6 +45,7 @@ describe('Create pet Use Case', async () => {
       expect.objectContaining({
         id: expect.any(String),
         name: 'John Doe',
+        city: 'New York',
         about: 'A friendly and playful dog',
         energy: 5,
       }),
@@ -53,6 +56,7 @@ describe('Create pet Use Case', async () => {
     await expect(
       sut.execute({
         id: 'not-exist-id',
+        city: 'New York',
         type: 'cat',
         name: 'John Doe',
         about: 'A friendly and playful dog',

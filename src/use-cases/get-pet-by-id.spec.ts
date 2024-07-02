@@ -15,6 +15,7 @@ describe('Get pet by id Use Case', () => {
   it('should be able to get a pet by id', async () => {
     const pet = await petsRepository.create({
       name: 'John Doe',
+      city: 'New York',
       type: 'dog',
       about: 'I am a pet owner',
       age: 2,

@@ -20,6 +20,7 @@ export class PrismaPetsRepository implements PetsRepository {
   async findManyByQuery({
     age,
     type,
+    city,
     energy,
     environment,
     independence,
@@ -49,6 +50,10 @@ export class PrismaPetsRepository implements PetsRepository {
 
     if (type) {
       where.type = type
+    }
+
+    if (city) {
+      where.city = city
     }
 
     const pets = await prisma.pet.findMany({
