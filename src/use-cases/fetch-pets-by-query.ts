@@ -1,8 +1,13 @@
+import { env } from '@/env'
 import {
   FindManyPetsByQuery,
   PetsRepository,
 } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
+
+interface PetObject extends Pet {
+  imageURL: string
+}
 
 interface FetchPetsByQueryUseCaseRequest {
   query: FindManyPetsByQuery
@@ -10,7 +15,7 @@ interface FetchPetsByQueryUseCaseRequest {
 }
 
 interface FetchPetsByQueryUseCaseResponse {
-  pets: Pet[]
+  pets: PetObject[]
 }
 
 export class FetchPetsByQueryUseCase {
@@ -19,7 +24,15 @@ export class FetchPetsByQueryUseCase {
     query,
     page = 1,
   }: FetchPetsByQueryUseCaseRequest): Promise<FetchPetsByQueryUseCaseResponse> {
-    const pets = await this.petsRepository.findManyByQuery({ query, page })
+    const filteredPets = await this.petsRepository.findManyByQuery({
+      query,
+      page,
+    })
+
+    const pets = filteredPets.map((pet) => ({
+      ...pet,
+      imageURL: `${env.APP_DOMAIN}/public/uploads/${pet.images[0]?.key}`,
+    }))
 
     return { pets }
   }
