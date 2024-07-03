@@ -5,6 +5,7 @@ import fastifyJWT from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
 import path from 'path'
 import { orgsRoutes } from './http/controllers/orgs/routes'
+import { petsRoutes } from './http/controllers/pets/routes'
 import { env } from './env'
 
 export const app = fastify()
@@ -23,6 +24,7 @@ app.register(fastifyJWT, {
 app.register(fastifyCookie)
 
 app.register(orgsRoutes)
+app.register(petsRoutes)
 
 app.register(fastifyStatic, {
   root: path.join(__dirname, '..', 'public'),
