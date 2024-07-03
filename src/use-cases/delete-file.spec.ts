@@ -33,15 +33,12 @@ describe('Delete File UseCase', () => {
       petId: 'pet-id-01',
     })
 
-    await fs.promises.copyFile(
-      TEST_FILE_FROM,
-      TEST_FILE_TO,
-      fs.constants.COPYFILE_FICLONE,
-    )
-
-    await sut.execute({ id: file.id, uploadDir: TEST_DIR_TO })
-
-    expect(await filesRepository.findById(file.id)).toBeNull()
+    await fs.promises
+      .copyFile(TEST_FILE_FROM, TEST_FILE_TO, fs.constants.COPYFILE_FICLONE)
+      .then(async () => {
+        await sut.execute({ id: file.id, uploadDir: TEST_DIR_TO })
+        expect(await filesRepository.findById(file.id)).toBeNull()
+      })
   })
 
   it('should throw an error when trying to delete a non-existent file', async () => {
