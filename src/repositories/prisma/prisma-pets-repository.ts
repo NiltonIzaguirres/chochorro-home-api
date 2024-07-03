@@ -52,6 +52,11 @@ export class PrismaPetsRepository implements PetsRepository {
       where,
       skip: (page - 1) * 20,
       take: 20,
+      include: {
+        images: {
+          take: 1,
+        },
+      },
     })
 
     return pets

@@ -71,7 +71,20 @@ export class InMemoryPetsRepository implements PetsRepository {
       filteredPets = filteredPets.filter((pet) => pet.city === query.city)
     }
 
-    return filteredPets.slice((page - 1) * 20, page * 20)
+    const petsWithImages = filteredPets.map((pet) => ({
+      ...pet,
+      images: [
+        {
+          id: randomUUID(),
+          name: 'Pet Image',
+          key: `${pet.id}.jpg`,
+          createdAt: new Date(),
+          petId: pet.id,
+        },
+      ],
+    }))
+
+    return petsWithImages.slice((page - 1) * 20, page * 20)
   }
 
   async save(pet: Pet) {

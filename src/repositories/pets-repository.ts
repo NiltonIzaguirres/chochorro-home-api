@@ -15,9 +15,21 @@ export interface FindManyPetsByQueryParams {
   page: number
 }
 
+type FindManyByQueryResponse = ({
+  images: {
+    id: string
+    name: string
+    key: string
+    createdAt: Date
+    petId: string
+  }[]
+} & Pet)[]
+
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
   save(data: Pet): Promise<Pet>
-  findManyByQuery(data: FindManyPetsByQueryParams): Promise<Pet[]>
+  findManyByQuery(
+    data: FindManyPetsByQueryParams,
+  ): Promise<FindManyByQueryResponse>
   findById(id: string): Promise<Pet | null>
 }
