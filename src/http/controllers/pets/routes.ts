@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify'
+import { fetchPets } from './fetch-pets'
 
 export async function petsRoutes(app: FastifyInstance) {
-  app.get('/pets', async () => {})
+  app.get('/pets', fetchPets)
 }
