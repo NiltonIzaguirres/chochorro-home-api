@@ -31,7 +31,7 @@ export class FetchPetsByQueryUseCase {
 
     const pets = filteredPets.map((pet) => ({
       ...pet,
-      imageURL: `${env.APP_DOMAIN}/public/uploads/${pet.images[0]?.key}`,
+      imageURL: `${env.APP_DOMAIN}/${env.UPLOAD_DIR}/${pet.images[0]?.key}`,
     }))
 
     return { pets }
