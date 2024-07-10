@@ -1,10 +1,10 @@
 import { FilesRepository } from '@/repositories/files-repository'
-import { File } from '@prisma/client'
 import fs from 'node:fs'
 import path from 'path'
 import { randomUUID } from 'node:crypto'
 import { InvalidTypeError } from './erros/invalid-type-error'
 import { FailedToUploadFileError } from './erros/failed-to-upload-file-error'
+import { env } from '@/env'
 
 interface CreateFileUseCaseRequest {
   fileData: NodeJS.ReadableStream
@@ -15,7 +15,14 @@ interface CreateFileUseCaseRequest {
 }
 
 interface CreateFileUseCaseResponse {
-  file: File
+  file: {
+    id: string
+    name: string
+    key: string
+    createdAt: Date
+    petId: string
+    imageURL: string
+  }
 }
 
 export class CreateFileUseCase {
@@ -56,6 +63,11 @@ export class CreateFileUseCase {
       petId,
     })
 
-    return { file }
+    return {
+      file: {
+        ...file,
+        imageURL: `${env.APP_DOMAIN}/${env.UPLOAD_DIR}/${file.key}`,
+      },
+    }
   }
 }
