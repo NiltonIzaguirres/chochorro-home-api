@@ -9,6 +9,7 @@ const dotenvSchema = z.object({
   APP_HOST: z.coerce.string().default('0.0.0.0'),
   APP_DOMAIN: z.coerce.string(),
   JWT_SECRET: z.coerce.string(),
+  UPLOAD_DIR: z.coerce.string(),
 })
 
 const _env = dotenvSchema.safeParse(process.env)
