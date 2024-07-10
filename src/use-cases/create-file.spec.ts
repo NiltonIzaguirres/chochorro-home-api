@@ -2,7 +2,6 @@ import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest'
 import { CreateFileUseCase } from './create-file'
 import { InMemoryFilesRepository } from '@/repositories/in-memory/in-memory-files-repository'
 import path from 'path'
-// import * as fs from 'fs-extra'
 import fs from 'node:fs'
 import { InvalidTypeError } from './erros/invalid-type-error'
 import { FailedToUploadFileError } from './erros/failed-to-upload-file-error'
@@ -45,6 +44,7 @@ describe('Create pet Use Case', async () => {
       name: 'test-svg.svg',
       petId: 'org123',
       createdAt: expect.any(Date),
+      imageURL: expect.any(String),
     })
   })
 
