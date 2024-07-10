@@ -18,14 +18,24 @@ function generateDatabaseURL(schema: string) {
   return url.toString()
 }
 
+function getUploadDirectory() {
+  if (!process.env.UPLOAD_DIR) {
+    throw new Error('Please provide a UPLOAD_DIR environment variable.')
+  }
+
+  return 'tmp'
+}
+
 export default <Environment>{
   name: 'custom',
   transformMode: 'ssr',
   async setup() {
     const schema = randomUUID()
     const databaseURL = generateDatabaseURL(schema)
+    const uploadDir = getUploadDirectory()
 
     process.env.DATABASE_URL = databaseURL
+    process.env.UPLOAD_DIR = uploadDir
 
     execSync('npx prisma migrate deploy')
 
