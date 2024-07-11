@@ -1,5 +1,6 @@
 import { env } from '@/env'
 import { InvalidTypeError } from '@/use-cases/erros/invalid-type-error'
+import { UnauthorizedError } from '@/use-cases/erros/unauthorized-error'
 import { makeCreateFile } from '@/use-cases/factories/make-create-file'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -29,6 +30,7 @@ export async function uploadImagePet(
       mimeType: data.mimetype,
       uploadDir: env.UPLOAD_DIR,
       petId: id,
+      sub: request.user.sub,
     })
 
     reply.status(201).send({
@@ -40,6 +42,9 @@ export async function uploadImagePet(
   } catch (err) {
     if (err instanceof InvalidTypeError) {
       reply.status(400).send({ message: err.message })
+    }
+    if (err instanceof UnauthorizedError) {
+      reply.status(403).send({ message: err.message })
     }
 
     throw err

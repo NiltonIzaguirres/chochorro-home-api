@@ -5,6 +5,8 @@ import { randomUUID } from 'node:crypto'
 import { InvalidTypeError } from './erros/invalid-type-error'
 import { FailedToUploadFileError } from './erros/failed-to-upload-file-error'
 import { env } from '@/env'
+import { PetsRepository } from '@/repositories/pets-repository'
+import { UnauthorizedError } from './erros/unauthorized-error'
 
 interface CreateFileUseCaseRequest {
   fileData: NodeJS.ReadableStream
@@ -12,6 +14,7 @@ interface CreateFileUseCaseRequest {
   mimeType: string
   uploadDir: string
   petId: string
+  sub: string
 }
 
 interface CreateFileUseCaseResponse {
@@ -26,13 +29,18 @@ interface CreateFileUseCaseResponse {
 }
 
 export class CreateFileUseCase {
-  constructor(private readonly repository: FilesRepository) {}
+  constructor(
+    private readonly repository: FilesRepository,
+    private petsRepository: PetsRepository,
+  ) {}
+
   async execute({
     fileData,
     fileName,
     mimeType,
     uploadDir,
     petId,
+    sub,
   }: CreateFileUseCaseRequest): Promise<CreateFileUseCaseResponse> {
     const imageMimeTypes = [
       'image/jpeg',
@@ -46,6 +54,12 @@ export class CreateFileUseCase {
 
     if (!imageMimeTypes.includes(mimeType)) {
       throw new InvalidTypeError()
+    }
+
+    const pet = await this.petsRepository.findById(petId)
+
+    if (pet?.orgId !== sub) {
+      throw new UnauthorizedError()
     }
 
     const fileKey = randomUUID().concat('-').concat(fileName)
