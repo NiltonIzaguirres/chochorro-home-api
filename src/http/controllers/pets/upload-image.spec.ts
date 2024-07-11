@@ -43,7 +43,7 @@ describe('Upload Image (E2E)', async () => {
     })
 
     const response = await request(app.server)
-      .post(`/pets/${pet.id}/image/upload`)
+      .post(`/pets/${pet.id}/image`)
       .attach('test-svg.svg', path.join(TEST_DIR_FROM, 'test-svg.svg'))
       .set('Authorization', `Bearer ${token}`)
 

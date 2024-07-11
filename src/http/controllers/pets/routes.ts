@@ -15,7 +15,7 @@ export async function petsRoutes(app: FastifyInstance) {
   app.patch('/pets/:id/save', { onRequest: [verifyJWT] }, updatePet)
 
   app.post('/pets', { onRequest: [verifyJWT] }, createPet)
-  app.post('/pets/:id/image/upload', { onRequest: [verifyJWT] }, uploadImagePet)
+  app.post('/pets/:id/image', { onRequest: [verifyJWT] }, uploadImagePet)
 
   app.delete('/pets/image/:id', { onRequest: [verifyJWT] }, deleteImagePet)
   app.delete('/pets/:id', { onRequest: [verifyJWT] }, deletePet)
