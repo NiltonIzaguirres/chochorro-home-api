@@ -27,6 +27,7 @@ type FindManyByQueryResponse = ({
 
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
+  delete(id: string): Promise<void>
   save(data: Pet): Promise<Pet>
   findManyByQuery(
     data: FindManyPetsByQueryParams,
